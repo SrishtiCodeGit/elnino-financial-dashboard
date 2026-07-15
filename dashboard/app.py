@@ -260,6 +260,82 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
+# ── Floating Menu button (JS-injected so it always works) ─────────────────────
+st.markdown("""
+<script>
+(function() {
+    function makeFAB() {
+        if (document.getElementById('elnino-menu-fab')) return;
+
+        var fab = document.createElement('div');
+        fab.id = 'elnino-menu-fab';
+        fab.title = 'Toggle navigation menu';
+        fab.innerHTML = [
+            '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"',
+            ' stroke="white" stroke-width="2.5" stroke-linecap="round">',
+            '<line x1="3" y1="6" x2="21" y2="6"/>',
+            '<line x1="3" y1="12" x2="21" y2="12"/>',
+            '<line x1="3" y1="18" x2="21" y2="18"/>',
+            '</svg>',
+            '<span style="color:rgba(255,255,255,0.9);font-size:7px;font-weight:700;',
+            'letter-spacing:0.1em;font-family:Inter,system-ui,sans-serif;">MENU</span>'
+        ].join('');
+
+        fab.style.cssText = [
+            'position:fixed',
+            'top:50%',
+            'left:0',
+            'transform:translateY(-50%)',
+            'z-index:2147483647',
+            'background:linear-gradient(180deg,#1D4ED8,#3B82F6)',
+            'border-radius:0 14px 14px 0',
+            'width:42px',
+            'height:84px',
+            'box-shadow:4px 0 20px rgba(29,78,216,0.5),0 0 0 1px rgba(59,130,246,0.25)',
+            'display:flex',
+            'flex-direction:column',
+            'align-items:center',
+            'justify-content:center',
+            'gap:6px',
+            'cursor:pointer',
+            'transition:width 0.18s ease,box-shadow 0.18s ease',
+            'user-select:none',
+        ].join(';');
+
+        fab.onmouseover = function() {
+            this.style.width = '56px';
+            this.style.boxShadow = '6px 0 28px rgba(29,78,216,0.65),0 0 0 1px rgba(59,130,246,0.4)';
+        };
+        fab.onmouseout = function() {
+            this.style.width = '42px';
+            this.style.boxShadow = '4px 0 20px rgba(29,78,216,0.5),0 0 0 1px rgba(59,130,246,0.25)';
+        };
+        fab.onclick = function() {
+            /* Try every known Streamlit sidebar toggle selector */
+            var selectors = [
+                '[data-testid="collapsedControl"] button',
+                '[data-testid="stSidebarNav"] button',
+                'button[data-testid="baseButton-headerNoPadding"]',
+                '[data-testid="stSidebar"] button[kind="header"]',
+                '[data-testid="stSidebar"] button',
+            ];
+            for (var i = 0; i < selectors.length; i++) {
+                var btn = document.querySelector(selectors[i]);
+                if (btn) { btn.click(); return; }
+            }
+        };
+
+        document.body.appendChild(fab);
+    }
+
+    /* Create immediately and re-create if Streamlit re-renders wipe it */
+    makeFAB();
+    var obs = new MutationObserver(makeFAB);
+    obs.observe(document.body, {childList: true, subtree: false});
+})();
+</script>
+""", unsafe_allow_html=True)
+
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 def sbadge(*sources):
