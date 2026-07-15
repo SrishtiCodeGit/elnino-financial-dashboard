@@ -65,10 +65,10 @@ CHART = dict(
     paper_bgcolor=BG_CARD, plot_bgcolor=BG_CARD,
     font=dict(color=TX_BODY, family="Inter, system-ui, sans-serif", size=11),
     xaxis=dict(gridcolor="#F1F5F9", zerolinecolor=BORDER_MED, linecolor=BORDER,
-               tickfont=dict(color=TX_MUTED, size=10), showgrid=True),
+               tickfont=dict(color=TX_MUTED, size=10), showgrid=True, automargin=True),
     yaxis=dict(gridcolor="#F1F5F9", zerolinecolor=BORDER_MED, linecolor=BORDER,
-               tickfont=dict(color=TX_MUTED, size=10), showgrid=True),
-    margin=dict(t=48, b=32, l=12, r=16),
+               tickfont=dict(color=TX_MUTED, size=10), showgrid=True, automargin=True),
+    margin=dict(t=52, b=52, l=72, r=24),
     legend=dict(bgcolor=BG_CARD, bordercolor=BORDER, borderwidth=1,
                 font=dict(color=TX_BODY, size=10)),
     hoverlabel=dict(bgcolor=BG_CARD, bordercolor=BORDER_MED,
@@ -926,9 +926,9 @@ elif page == "ENSO Monitor":
             hovertemplate="<b>%{label}</b><br>%{value} seasons (%{percent})<extra></extra>"))
         fig_pie.add_annotation(text=f"<b>{len(oni)}</b><br><span style='font-size:9px'>seasons</span>",
             x=0.5, y=0.5, showarrow=False, font=dict(size=13, color=TX_H, family="Inter"))
-        fig_pie.update_layout(**{**CHART,"margin":dict(t=10,b=10,l=10,r=10),
+        fig_pie.update_layout(**{**CHART,"margin":dict(t=20,b=20,l=20,r=20),
             "legend":dict(orientation="v",bgcolor=BG_CARD,font=dict(color=TX_BODY,size=9.5),borderwidth=0)},
-            height=280, title="")
+            height=300, title="")
         st.plotly_chart(fig_pie, use_container_width=True)
         sbadge("NOAA ONI Dataset")
 
@@ -1094,8 +1094,8 @@ elif page == "Commodities":
                 fig.add_vrect(x0=s0, x1=e0, fillcolor=fc, line_width=0, layer="below", row=i, col=1)
         fig.update_annotations(font=dict(size=10, color=TX_BODY, family="Inter"))
         fig.update_xaxes(gridcolor="#F1F5F9", tickfont=dict(color=TX_MUTED, size=9))
-        fig.update_layout(**{**CHART,"margin":dict(t=32,b=24,l=12,r=16)},
-            height=max(260,200*n), showlegend=False)
+        fig.update_layout(**{**CHART,"margin":dict(t=36,b=48,l=72,r=24)},
+            height=max(300,220*n), showlegend=False)
         st.plotly_chart(fig, use_container_width=True)
         sbadge("Yahoo Finance via yfinance — Commodity Futures (2000–2025)")
 
@@ -1182,8 +1182,8 @@ elif page == "Cryptocurrency":
             fig.add_vrect(x0=s0,x1=e0,fillcolor=fc,line_width=0,layer="below",row=i,col=1)
     fig.update_annotations(font=dict(size=10,color=TX_BODY,family="Inter"))
     fig.update_xaxes(gridcolor="#F1F5F9",tickfont=dict(color=TX_MUTED,size=9))
-    fig.update_layout(**{**CHART,"margin":dict(t=32,b=24,l=12,r=16)},
-        height=max(320,240*n_plots), showlegend=False)
+    fig.update_layout(**{**CHART,"margin":dict(t=36,b=48,l=72,r=24)},
+        height=max(360,260*n_plots), showlegend=False)
     st.plotly_chart(fig, use_container_width=True)
     sbadge("Yahoo Finance via yfinance — BTC-USD, ETH-USD (2013–2025)")
 
@@ -1198,14 +1198,21 @@ elif page == "Cryptocurrency":
                 lambda v: "El Nino" if v>=0.5 else ("La Nina" if v<=-0.5 else "Neutral"))
             present = [p for p in ["El Nino","Neutral","La Nina"] if p in vdf["phase"].values]
             if present:
-                vdf["phase"] = pd.Categorical(vdf["phase"], categories=present, ordered=True)
-                fig_box = px.box(vdf.sort_values("phase"), x="phase", y="vol", color="phase",
-                    color_discrete_map={"El Nino":RED,"Neutral":SLATE,"La Nina":BLUE},
-                    labels={"vol":"Annualised Volatility (%)","phase":"ENSO Phase"})
-                fig_box.update_traces(marker_size=3, marker_opacity=0.5)
-                fig_box.update_layout(**{**CHART,"margin":dict(t=12,b=24,l=12,r=16)},
-                    height=290, showlegend=False,
-                    title="BTC volatility by ENSO phase (2013–2025)")
+                fig_box = go.Figure()
+                clr_map = {"El Nino": RED, "Neutral": SLATE, "La Nina": BLUE}
+                for ph_name in present:
+                    subset = vdf[vdf["phase"] == ph_name]["vol"].dropna()
+                    if not subset.empty:
+                        fig_box.add_trace(go.Box(
+                            y=subset, name=ph_name,
+                            marker_color=clr_map[ph_name],
+                            marker_size=3, marker_opacity=0.5, line_width=1.5,
+                            hovertemplate=f"<b>{ph_name}</b><br>Volatility: %{{y:.1f}}%<extra></extra>"))
+                fig_box.update_layout(**CHART,
+                    height=310, showlegend=False,
+                    title="BTC annualised volatility by ENSO phase (2013–2025)",
+                    yaxis_title="Annualised Volatility (%)",
+                    xaxis_title="ENSO Phase")
                 st.plotly_chart(fig_box, use_container_width=True)
                 sbadge("Yahoo Finance (BTC-USD)","NOAA ONI Dataset")
 
@@ -1227,10 +1234,11 @@ elif page == "Cryptocurrency":
                     textfont=dict(color=TX_H,size=11), textposition="outside",
                     hovertemplate="<b>%{x}</b><br>Pearson r: %{y:.3f}<extra></extra>"))
                 fig_cor.add_hline(y=0, line=dict(color=BORDER_MED,width=1))
-                fig_cor.update_layout(**{**CHART,"margin":dict(t=12,b=24,l=12,r=16)},
-                    height=290,
+                fig_cor.update_layout(**CHART,
+                    height=310,
                     title="BTC–S&P 500 return correlation by ENSO phase",
-                    yaxis_title="Pearson Correlation")
+                    yaxis_title="Pearson Correlation",
+                    xaxis_title="ENSO Phase")
                 st.plotly_chart(fig_cor, use_container_width=True)
                 sbadge("Yahoo Finance (BTC-USD, ^GSPC)","NOAA ONI Dataset")
 
@@ -1290,13 +1298,23 @@ elif page == "Insurance & Banking":
                          "Total Return (%)":round((w.iloc[-1]/w.iloc[0]-1)*100,1)})
     if rows:
         rdf  = pd.DataFrame(rows)
-        fig2 = px.bar(rdf, x="El Nino Event", y="Total Return (%)", color="Sector",
-            barmode="group",
-            color_discrete_map={"S&P 500":BLUE,"Insurance ETF (KIE)":GREEN,"Banking ETF (KBE)":AMBER},
-            text_auto=".1f")
-        fig2.update_traces(marker_line=dict(color="white",width=1.2), textfont=dict(color=TX_H,size=9.5))
-        fig2.add_hline(y=0, line=dict(color=BORDER_MED,width=1))
-        fig2.update_layout(**CHART, height=330, title="Sector total returns during each El Nino window")
+        events_order = rdf["El Nino Event"].unique().tolist()
+        fig2 = go.Figure()
+        for sector, color in [("S&P 500", BLUE), ("Insurance ETF (KIE)", GREEN), ("Banking ETF (KBE)", AMBER)]:
+            subset = rdf[rdf["Sector"] == sector]
+            if subset.empty: continue
+            vals = [subset[subset["El Nino Event"]==ev]["Total Return (%)"].values[0]
+                    if ev in subset["El Nino Event"].values else None for ev in events_order]
+            fig2.add_trace(go.Bar(
+                name=sector, x=events_order, y=vals,
+                marker_color=color, marker_line=dict(color="white", width=1.2),
+                text=[f"{v:+.1f}%" if v is not None else "" for v in vals],
+                textfont=dict(color=TX_H, size=9.5), textposition="outside",
+                hovertemplate=f"<b>{sector}</b><br>%{{x}}: %{{y:+.1f}}%<extra></extra>"))
+        fig2.add_hline(y=0, line=dict(color=BORDER_MED, width=1))
+        fig2.update_layout(**CHART, barmode="group", height=360,
+            title="Sector total returns during each El Nino window",
+            yaxis_title="Total Return (%)", xaxis_title="El Nino Event")
         st.plotly_chart(fig2, use_container_width=True)
         sbadge("Yahoo Finance — KIE, KBE, ^GSPC")
 
