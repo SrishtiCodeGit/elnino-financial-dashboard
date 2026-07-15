@@ -1,5 +1,5 @@
 """
-El Nino & Financial Markets — Research Dashboard
+El Nino & Financial Markets: Research Dashboard
 Author  : Srishti Chauhan
 Advisor : Prof. Haralambos Kostakopoulos
 Year    : 2026
@@ -832,7 +832,7 @@ function Ticker() {
   const items = [
     ['1997-98 Super El Niño', 'Peak ONI: +2.4 °C · Global GDP loss ~USD 5.7 trillion'],
     ['1982-83 Super El Niño', 'GDP losses sustained for 15+ years post-event'],
-    ['VIX Volatility', 'Spikes 40–60% above baseline during major El Niño events'],
+    ['VIX Volatility', 'Spikes 40 to 60% above baseline during major El Nino events'],
     ['Wheat Futures', 'Average +3% quarterly during El Niño vs +2.4% neutral periods'],
     ['Insurance Sector', 'Systematically underperforms S&P 500 during El Niño windows'],
     ['Bitcoin', 'Correlation with S&P 500 increases during El Niño stress periods'],
@@ -856,19 +856,19 @@ function Ticker() {
 const SECTIONS = [
   { num:'01', color:'#1D4ED8', gradient:'linear-gradient(135deg,#1D4ED8,#3B82F6)',
     title:'ENSO Monitor', page:'ENSO Monitor',
-    desc:'ONI index 1950–2025, Super El Niño events, phase distribution and historical economic loss estimates.' },
+    desc:'ONI index 1950 to 2025, Super El Nino events, phase distribution and historical economic loss estimates.' },
   { num:'02', color:'#B45309', gradient:'linear-gradient(135deg,#B45309,#F59E0B)',
     title:'Financial Markets', page:'Financial Markets',
     desc:'S&P 500, VIX volatility, and equity returns segmented by ENSO phase over 35 years of data.' },
   { num:'03', color:'#047857', gradient:'linear-gradient(135deg,#047857,#10B981)',
     title:'Commodities', page:'Commodities',
-    desc:'Wheat, corn, coffee, crude oil and gold futures — supply disruption and price shock analysis.' },
+    desc:'Wheat, corn, coffee, crude oil and gold futures, supply disruption and price shock analysis.' },
   { num:'04', color:'#7C3AED', gradient:'linear-gradient(135deg,#7C3AED,#A78BFA)',
     title:'Cryptocurrency', page:'Cryptocurrency',
-    desc:'Bitcoin and Ethereum behaviour during El Niño cycles — emerging asset class correlation study.' },
+    desc:'Bitcoin and Ethereum behaviour during El Nino cycles, emerging asset class correlation study.' },
   { num:'05', color:'#B91C1C', gradient:'linear-gradient(135deg,#B91C1C,#EF4444)',
     title:'Insurance & Banking', page:'Insurance & Banking',
-    desc:'Sector ETF performance vs S&P 500 — testing whether climate tail risk is priced into valuations.' },
+    desc:'Sector ETF performance vs S&P 500, testing whether climate tail risk is priced into valuations.' },
 ];
 
 function SectionCard({ num, gradient, title, page: pg, desc, delay }) {
@@ -938,7 +938,7 @@ function App() {
     /* STATS */
     h('div', { className:'stats' },
       ...[
-        { v:75,  s:'',  l:'Years of ENSO Data\n1950 – 2025',     d:'0.05s' },
+        { v:75,  s:'',  l:'Years of ENSO Data\n1950 to 2025',     d:'0.05s' },
         { v:5,   s:'',  l:'Super El Niño Events\nStudied in depth', d:'0.10s' },
         { v:5,   s:'',  l:'Asset Classes\nAnalyzed',                d:'0.15s' },
         { v:13,  s:'+', l:'Financial Instruments\nTracked',          d:'0.20s' },
@@ -985,11 +985,11 @@ function App() {
       h('div', { className:'sec-hd' }, 'Data Sources'),
       h('div', { className:'sources' },
         ...[
-          'NOAA Climate Prediction Center — ONI Dataset (1950–2025)',
-          'Yahoo Finance via yfinance — Equities, Commodities & Crypto',
-          'NBER — Official US Recession Dates',
-          'NCEI Billion-Dollar Disasters — Annual Loss Statistics',
-          'CoinGecko / Yahoo Finance — BTC, ETH (2013–2025)',
+          'NOAA Climate Prediction Center: ONI Dataset (1950 to 2025)',
+          'Yahoo Finance via yfinance: Equities, Commodities and Crypto',
+          'NBER: Official US Recession Dates',
+          'NCEI Billion-Dollar Disasters: Annual Loss Statistics',
+          'CoinGecko / Yahoo Finance: BTC, ETH (2013 to 2025)',
           'S&P 500 (^GSPC)  ·  VIX (^VIX)  ·  Dow Jones (^DJI)',
         ].map((s, i) => h('div', { className:'src', key:i }, s))
       ),
@@ -1021,7 +1021,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(h(App, null));
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "ENSO Monitor":
     ph("ENSO Monitor",
-       "Oceanic Nino Index (ONI) — the official NOAA measure of El Nino and La Nina intensity")
+       "Oceanic Nino Index (ONI), the official NOAA measure of El Nino and La Nina intensity")
 
     super_cnt = int((oni["phase"] == "Super El Nino").sum())
     col_key   = "negative" if latest_oni > 0.5 else ("positive" if latest_oni < -0.5 else "neutral")
@@ -1034,7 +1034,7 @@ elif page == "ENSO Monitor":
     c5.markdown(kpi_card("Record La Nina Low", f"{oni['ONI'].min():.2f} °C", sub="Historical min", color="positive"), unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-    sec("ONI INDEX TIMELINE  ·  1950 – 2025")
+    sec("ONI INDEX TIMELINE  ·  1950 to 2025")
 
     pos = oni["ONI"].clip(lower=0)
     neg = oni["ONI"].clip(upper=0)
@@ -1051,16 +1051,16 @@ elif page == "ENSO Monitor":
     fig.add_hline(y=0.5,  line=dict(color="rgba(185,28,28,0.25)", dash="dot", width=1))
     fig.add_hline(y=-0.5, line=dict(color="rgba(29,78,216,0.25)", dash="dot", width=1))
     fig.add_hline(y=0,    line=dict(color=BORDER_MED, width=0.8))
-    for d, y2, lbl in [("1982-11-01",2.5,"1982–83"),("1997-10-01",2.7,"1997–98"),("2015-10-01",2.55,"2015–16")]:
+    for d, y2, lbl in [("1982-11-01",2.5,"1982-83"),("1997-10-01",2.7,"1997-98"),("2015-10-01",2.55,"2015-16")]:
         fig.add_annotation(x=d, y=y2, text=f"<b>{lbl}</b>", showarrow=True,
             arrowhead=2, arrowcolor=RED, arrowsize=0.7, arrowwidth=1.2,
             font=dict(color=RED, size=8.5), bgcolor="rgba(255,255,255,0.9)",
             bordercolor=RED, borderwidth=0.5, borderpad=3, ay=-28)
     fig.update_layout(**CHART, height=310,
-        title="Oceanic Nino Index 1950–2025  ·  El Nino (red) and La Nina (blue)",
+        title="Oceanic Nino Index 1950 to 2025  ·  El Nino (red) and La Nina (blue)",
         yaxis_title="ONI Anomaly (°C)")
     st.plotly_chart(fig, use_container_width=True)
-    sbadge("NOAA Climate Prediction Center — CPC ONI Dataset (1950–2025)")
+    sbadge("NOAA Climate Prediction Center: CPC ONI Dataset (1950 to 2025)")
 
     col1, col2 = st.columns([1, 1.8])
     with col1:
@@ -1087,17 +1087,17 @@ elif page == "ENSO Monitor":
     with col2:
         sec("MAJOR EL NINO EVENTS")
         ev_df = pd.DataFrame({
-            "Event":            ["1972–73","1982–83 (Super)","1997–98 (Super)","2015–16 (Super)","2023–24"],
+            "Event":            ["1972-73","1982-83 (Super)","1997-98 (Super)","2015-16 (Super)","2023-24"],
             "Peak ONI (°C)":    ["+2.0","+2.2","+2.4","+2.3","+2.0"],
             "Duration":         ["8 months","14 months","13 months","13 months","9 months"],
             "Est. Global Loss": ["~USD 40 billion","~USD 4.1 trillion","~USD 5.7 trillion","~USD 3.9 trillion","Pending"],
-            "US Recession":     ["Yes (1973–75)","Yes (1981–82)","No","No","TBD"],
+            "US Recession":     ["Yes (1973-75)","Yes (1981-82)","No","No","TBD"],
         })
         st.dataframe(ev_df, use_container_width=True, hide_index=True, height=220)
         sbadge("Callahan & Mankin (Science, 2023)","NOAA NCEI")
 
     st.markdown("""<div class="callout">
-        <strong>Research Context:</strong> The 1982–83 and 1997–98 Super El Nino events caused
+        <strong>Research Context:</strong> The 1982-83 and 1997-98 Super El Nino events caused
         an estimated USD 4.1 trillion and USD 5.7 trillion in cumulative global income losses,
         with GDP suppression persisting up to 15 years post-event (Callahan &amp; Mankin, <em>Science</em>, 2023).
     </div>""", unsafe_allow_html=True)
@@ -1108,7 +1108,7 @@ elif page == "ENSO Monitor":
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "Financial Markets":
     ph("Financial Markets",
-       "S&P 500, VIX, and equity index behaviour during El Nino events (1990–2025)")
+       "S&P 500, VIX, and equity index behaviour during El Nino events (1990 to 2025)")
 
     sp  = fin["SP500"].dropna();  vix = fin["VIX"].dropna()
     dj  = fin["DowJones"].dropna()
@@ -1137,9 +1137,9 @@ elif page == "Financial Markets":
         hovertemplate="%{x|%d %b %Y}  <b>%{y:,.0f}</b><extra></extra>"))
     add_recession_bands(fig, nber_f); add_el_nino_bands(fig)
     fig.update_layout(**CHART, height=300,
-        title="S&P 500 — Red: El Nino windows  ·  Gray: NBER recessions", yaxis_title="Index")
+        title="S&P 500: Red shading shows El Nino windows  ·  Gray shows NBER recessions", yaxis_title="Index")
     st.plotly_chart(fig, use_container_width=True)
-    sbadge("Yahoo Finance — ^GSPC","NBER Recession Dates")
+    sbadge("Yahoo Finance: ^GSPC","NBER Recession Dates")
 
     sec("CBOE VIX VOLATILITY INDEX")
     vix_f = fin_f["VIX"].dropna()
@@ -1152,9 +1152,9 @@ elif page == "Financial Markets":
         annotation=dict(font=dict(color=RED, size=9), bgcolor="rgba(255,255,255,0.9)"))
     add_el_nino_bands(fig2)
     fig2.update_layout(**CHART, height=260,
-        title="CBOE Volatility Index — higher = more market uncertainty", yaxis_title="VIX")
+        title="CBOE Volatility Index: higher values indicate greater market uncertainty", yaxis_title="VIX")
     st.plotly_chart(fig2, use_container_width=True)
-    sbadge("Yahoo Finance — ^VIX")
+    sbadge("Yahoo Finance: ^VIX")
 
     sec("AVERAGE QUARTERLY S&P 500 RETURN BY ENSO PHASE")
     sp_q = sp.resample("QS").last().pct_change()*100
@@ -1175,7 +1175,7 @@ elif page == "Financial Markets":
         hovertemplate="<b>%{x}</b><br>%{y:+.2f}%<extra></extra>"))
     fig3.add_hline(y=0, line=dict(color=BORDER_MED, width=1))
     fig3.update_layout(**CHART, height=300,
-        title="Average quarterly S&P 500 returns by ENSO phase (1990–2025)",
+        title="Average quarterly S&P 500 returns by ENSO phase (1990 to 2025)",
         yaxis_title="Avg Quarterly Return (%)")
     st.plotly_chart(fig3, use_container_width=True)
     sbadge("Yahoo Finance (^GSPC)","NOAA ONI Dataset")
@@ -1249,7 +1249,7 @@ elif page == "Commodities":
         fig.update_layout(**{**CHART,"margin":dict(t=36,b=48,l=72,r=24)},
             height=max(300,220*n), showlegend=False)
         st.plotly_chart(fig, use_container_width=True)
-        sbadge("Yahoo Finance via yfinance — Commodity Futures (2000–2025)")
+        sbadge("Yahoo Finance via yfinance: Commodity Futures (2000 to 2025)")
 
     sec("AVERAGE QUARTERLY PRICE CHANGE  ·  EL NINO vs NEUTRAL")
     oni_q   = oni["ONI"].resample("QS").mean()
@@ -1284,7 +1284,7 @@ elif page == "Commodities":
             title="Commodity price sensitivity: El Nino (red) vs neutral ENSO periods",
             yaxis_title="Average Quarterly Price Change (%)")
         st.plotly_chart(fig_b, use_container_width=True)
-        sbadge("Yahoo Finance — Commodity Futures","NOAA ONI Dataset")
+        sbadge("Yahoo Finance: Commodity Futures","NOAA ONI Dataset")
         sec("SUMMARY TABLE")
         st.dataframe(res, use_container_width=True, hide_index=True)
 
@@ -1294,10 +1294,10 @@ elif page == "Commodities":
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "Cryptocurrency":
     ph("Cryptocurrency Markets",
-       "Bitcoin and Ethereum price behaviour during El Nino events — exploratory analysis (2013–2025)")
+       "Bitcoin and Ethereum price behaviour during El Nino events, exploratory analysis (2013 to 2025)")
 
     st.markdown("""<div class="callout-amber">
-        <strong>Methodological Note:</strong> Only the 2015–16 and 2023–24 El Nino events
+        <strong>Methodological Note:</strong> Only the 2015-16 and 2023-24 El Nino events
         overlap with mature cryptocurrency markets. All results are preliminary findings.
     </div>""", unsafe_allow_html=True)
 
@@ -1337,7 +1337,7 @@ elif page == "Cryptocurrency":
     fig.update_layout(**{**CHART,"margin":dict(t=36,b=48,l=72,r=24)},
         height=max(360,260*n_plots), showlegend=False)
     st.plotly_chart(fig, use_container_width=True)
-    sbadge("Yahoo Finance via yfinance — BTC-USD, ETH-USD (2013–2025)")
+    sbadge("Yahoo Finance via yfinance: BTC-USD, ETH-USD (2013 to 2025)")
 
     col1, col2 = st.columns(2)
     with col1:
@@ -1362,14 +1362,14 @@ elif page == "Cryptocurrency":
                             hovertemplate=f"<b>{ph_name}</b><br>Volatility: %{{y:.1f}}%<extra></extra>"))
                 fig_box.update_layout(**CHART,
                     height=310, showlegend=False,
-                    title="BTC annualised volatility by ENSO phase (2013–2025)",
+                    title="BTC annualised volatility by ENSO phase (2013 to 2025)",
                     yaxis_title="Annualised Volatility (%)",
                     xaxis_title="ENSO Phase")
                 st.plotly_chart(fig_box, use_container_width=True)
                 sbadge("Yahoo Finance (BTC-USD)","NOAA ONI Dataset")
 
     with col2:
-        sec("BTC vs S&P 500  —  CORRELATION BY ENSO PHASE")
+        sec("BTC vs S&P 500: CORRELATION BY ENSO PHASE")
         sp_d   = fin["SP500"].dropna().pct_change()
         btc_d  = btc.pct_change()
         oni_d2 = oni["ONI"].reindex(sp_d.index, method="ffill")
@@ -1388,7 +1388,7 @@ elif page == "Cryptocurrency":
                 fig_cor.add_hline(y=0, line=dict(color=BORDER_MED,width=1))
                 fig_cor.update_layout(**CHART,
                     height=310,
-                    title="BTC–S&P 500 return correlation by ENSO phase",
+                    title="BTC and S&P 500 return correlation by ENSO phase",
                     yaxis_title="Pearson Correlation",
                     xaxis_title="ENSO Phase")
                 st.plotly_chart(fig_cor, use_container_width=True)
@@ -1434,10 +1434,10 @@ elif page == "Insurance & Banking":
         annotation=dict(font=dict(color=TX_MUTED,size=8.5)))
     add_el_nino_bands(fig); add_recession_bands(fig, nber_trim)
     fig.update_layout(**CHART, height=360,
-        title=f"Relative performance since {start_dt.strftime('%b %Y')} — red: El Nino  ·  gray: recessions",
+        title=f"Relative performance since {start_dt.strftime('%b %Y')}: red shading shows El Nino, gray shows recessions",
         yaxis_title="Indexed Value (base = 100)")
     st.plotly_chart(fig, use_container_width=True)
-    sbadge("Yahoo Finance — KIE, KBE, ^GSPC","NBER Recession Dates")
+    sbadge("Yahoo Finance: KIE, KBE, ^GSPC","NBER Recession Dates")
 
     sec("TOTAL RETURN DURING EACH EL NINO WINDOW")
     rows = []
@@ -1468,7 +1468,7 @@ elif page == "Insurance & Banking":
             title="Sector total returns during each El Nino window",
             yaxis_title="Total Return (%)", xaxis_title="El Nino Event")
         st.plotly_chart(fig2, use_container_width=True)
-        sbadge("Yahoo Finance — KIE, KBE, ^GSPC")
+        sbadge("Yahoo Finance: KIE, KBE, ^GSPC")
 
         sec("RETURN SUMMARY TABLE")
         pivot = rdf.pivot(index="El Nino Event", columns="Sector", values="Total Return (%)")
