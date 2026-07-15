@@ -1302,8 +1302,7 @@ elif page == "Insurance & Banking":
 
         sec("RETURN SUMMARY TABLE")
         pivot = rdf.pivot(index="El Nino Event", columns="Sector", values="Total Return (%)")
-        st.dataframe(pivot.style.format("{:+.1f}%").background_gradient(
-            cmap="RdYlGn", axis=None, vmin=-30, vmax=30), use_container_width=True)
+        st.dataframe(pivot.style.format("{:+.1f}%"), use_container_width=True)
 
     st.markdown("""<div class="callout">
         <strong>Hypothesis H3:</strong> If insurance and banking sectors systematically
