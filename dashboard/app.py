@@ -178,6 +178,85 @@ st.markdown(f"""
 .sb-enso-p {{ font-size:0.72rem; color:#475569 !important; margin-top:4px; }}
 .sb-src    {{ font-size:0.73rem; color:#334155 !important; line-height:2; }}
 .sb-adv    {{ font-size:0.73rem; color:#334155 !important; line-height:1.8; }}
+
+/* ── Sidebar OPEN button (shown when sidebar is hidden) ── */
+[data-testid="collapsedControl"] {{
+    position: fixed !important;
+    top: 50% !important;
+    left: 0 !important;
+    transform: translateY(-50%) !important;
+    z-index: 9999 !important;
+    background: linear-gradient(180deg, {BLUE} 0%, {BLUE_LT} 100%) !important;
+    border-radius: 0 14px 14px 0 !important;
+    width: 44px !important;
+    height: 88px !important;
+    box-shadow: 4px 0 20px rgba(29,78,216,0.45), 0 0 0 1px rgba(59,130,246,0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: width 0.2s ease, box-shadow 0.2s ease !important;
+    border: none !important;
+}}
+[data-testid="collapsedControl"]:hover {{
+    width: 58px !important;
+    box-shadow: 6px 0 28px rgba(29,78,216,0.6), 0 0 0 1px rgba(59,130,246,0.5) !important;
+}}
+[data-testid="collapsedControl"] button {{
+    background: transparent !important;
+    border: none !important;
+    color: white !important;
+    width: 100% !important;
+    height: 100% !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    padding: 0 !important;
+}}
+[data-testid="collapsedControl"] svg {{
+    color: white !important;
+    fill: white !important;
+    width: 18px !important;
+    height: 18px !important;
+}}
+[data-testid="collapsedControl"]::after {{
+    content: 'MENU' !important;
+    position: absolute !important;
+    bottom: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    color: rgba(255,255,255,0.85) !important;
+    font-size: 7px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    font-family: Inter, system-ui, sans-serif !important;
+    pointer-events: none !important;
+}}
+
+/* ── Sidebar CLOSE button (inside open sidebar) ── */
+[data-testid="stSidebar"] button[data-testid="baseButton-headerNoPadding"],
+[data-testid="stSidebar"] button[kind="header"] {{
+    background: rgba(59,130,246,0.12) !important;
+    border: 1px solid rgba(59,130,246,0.2) !important;
+    border-radius: 8px !important;
+    color: #60A5FA !important;
+    padding: 6px !important;
+    opacity: 1 !important;
+    transition: background 0.15s !important;
+    margin: 14px 14px 0 !important;
+}}
+[data-testid="stSidebar"] button[data-testid="baseButton-headerNoPadding"]:hover,
+[data-testid="stSidebar"] button[kind="header"]:hover {{
+    background: rgba(59,130,246,0.22) !important;
+}}
+[data-testid="stSidebar"] button[data-testid="baseButton-headerNoPadding"] svg,
+[data-testid="stSidebar"] button[kind="header"] svg {{
+    color: #60A5FA !important;
+    fill: #60A5FA !important;
+}}
 </style>
 """, unsafe_allow_html=True)
 
